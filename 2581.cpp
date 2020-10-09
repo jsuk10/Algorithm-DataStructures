@@ -18,9 +18,12 @@ void CheckPrimNum(int num)
     return;
 }
 
-int InputNum(int start, int last)
+void InputNum(int start, int Last)
 {
-    for (int k = start; k < last; k++)
+    if (start < 2)
+        start = 2;
+
+    for (int k = start; k <= Last; k++)
         CheckPrimNum(k);
 
     (minNum == 0) ? cout << -1 : cout << sumNum << endl
