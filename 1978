@@ -1,0 +1,20 @@
+    //first
+    for (int i = 2; i < num; i++)
+    기초적인 알고리즘으로 소수를 찾는 방법 2부터 num까지 전체 조회
+    
+    연산량 n번
+    시간 복잡도가 O(n)
+
+    //second
+    for (int i = 2 ; i <=num; i++)
+    num/2 초과일 경우 num이외에 수는 나눴을때 0이 될 수 없음
+    
+    연산량 n/2번
+    O(n){big - o 는 상수 제거}
+
+    //Last
+    for (int i = 2; i * i <= num; i++)
+    √num 이상의 약수는 √num아래의 약수와 짝을 이루기 때문에 조회할 필요 없음
+
+    연산량 √N번
+    O(√N)
