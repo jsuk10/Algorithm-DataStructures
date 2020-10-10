@@ -31,7 +31,7 @@ void CheckNum(int num)
         if (primeArray[i] == true)
             count++;
     }
-    cout << count;
+    cout << count << '\n';
 }
 int main()
 {
@@ -48,19 +48,3 @@ int main()
         CheckNum(num);
     }
 }
-/*
-13 *
-14
-15
-16
-17 *
-18
-19 *
-20
-21
-22
-23 *
-24
-25
-26
-*/
