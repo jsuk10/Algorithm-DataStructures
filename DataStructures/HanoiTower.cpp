@@ -6,7 +6,7 @@ void Process(int num, char from, char to, char by) {
     if (num == 0)
         return;
     Process(num - 1, from , by, to);
-    cout << from << "¿¡¼­" << to << "·Î" << num << "¿ø¹Ý ÀÌµ¿ \n";
+    cout << from << "ì—ì„œ" << to << "ìœ¼ë¡œ" << num << "ë²ˆ  \n";
     Process(num - 1, by, to, from);
 }
 
