@@ -7,9 +7,9 @@ void ListInit(List* plist) {
 }
 
 void LInsert(List* plist, LData data) {
-    //¿¹¿ÜÃ³¸® »©¸ÔÀ½
+    //ì˜ˆì™¸ì²˜ë¦¬ ë¹¼ë¨¹ìŒ
     if (plist->numOfData > LIST_LEN) {
-        printf("ÀúÀå ºÒ°¡");
+        printf("ì €ìž¥ ë¶ˆê°€");
         return;
     }
     plist->arr[plist->numOfData] = data;
@@ -28,8 +28,8 @@ int LFirst(List* plist, LData* pdata) {
 int LNext(List* plist, LData* pdata) {
     if (plist->curPosition >= plist->numOfData - 1)
         return FALSE;
-    //*pdata·Î ½á¾ßÇÏ´Â ºÎºÐÀÎµ¥ pdata·Î ¾¸
-    //Æ÷ÀÎÅÍ ÂüÁ¶ Æ÷ÀÎÅÍ ´Ù½Ã °øºÎÇÒ°Í.
+    //*pdataë¡œ ì¨ì•¼í•˜ëŠ” ë¶€ë¶„ì¸ë° pdataë¡œ ì”€
+    //í¬ì¸í„° ì°¸ì¡° í¬ì¸í„° ë‹¤ì‹œ ê³µë¶€í• ê²ƒ.
     *pdata = plist->arr[++(plist->curPosition)];
     return TRUE;
 };
@@ -40,10 +40,20 @@ LData LRemove(List* plist) {
         plist->arr[i] = plist->arr[i + 1];
     }
     plist->numOfData--;
-    //»©¸ÔÀº ºÎºÐ ¸¸¾à µÇµ¹¸®Áö ¾ÊÀ¸¸é ÇÑÄ­ ¾ÕÀ¸·Î ´õ ³ª°¡°ÔµÊ ÀÌ°Ô ¾øÀ» °æ¿ì 3¹øÀ» »èÁ¦ÇÏ°í 4¹øÀ» ÂüÁ¶ÇÏ¹Ç·Î ½ÇÁ¦·Î´Â »èÁ¦ÈÄ ÇÑÄ­ ´õ°¡¼­ ÂüÁ¶ÇÏ´Â°ÍÀÌµÊ
+    //ë¹¼ë¨¹ì€ ë¶€ë¶„ ë§Œì•½ ë˜ëŒë¦¬ì§€ ì•Šìœ¼ë©´ í•œì¹¸ ì•žìœ¼ë¡œ ë” ë‚˜ê°€ê²Œë¨ ì´ê²Œ ì—†ì„ ê²½ìš° 3ë²ˆì„ ì‚­ì œí•˜ê³  4ë²ˆì„ ì°¸ì¡°í•˜ë¯€ë¡œ ì‹¤ì œë¡œëŠ” ì‚­ì œí›„ í•œì¹¸ ë”ê°€ì„œ ì°¸ì¡°í•˜ëŠ”ê²ƒì´ë¨
     plist->curPosition--; 
     return temp;
 };
+
 int LCount(List* plist) {
     return plist->numOfData; 
+}
+
+int comp(LData d1, LData d2) {
+    if (d1 < d2) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
 }

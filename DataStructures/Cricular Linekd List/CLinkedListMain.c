@@ -3,56 +3,56 @@
 
 int main(void)
 {
-	// ¿øÇü ¿¬°á ¸®½ºÆ®ÀÇ »ı¼º ¹× ÃÊ±âÈ­ ///////
+	// ì›í˜• ì—°ê²° ë¦¬ìŠ¤íŠ¸ì˜ ìƒì„± ë° ì´ˆê¸°í™” ///////
 	List list;
 	int data, i, nodeNum;
 	ListInit(&list);
 
-	// ¸®½ºÆ®¿¡ 5°³ÀÇ µ¥ÀÌÅÍ¸¦ ÀúÀå /////// 
+	// ë¦¬ìŠ¤íŠ¸ì— 5ê°œì˜ ë°ì´í„°ë¥¼ ì €ì¥ ///////
 	LInsert(&list, 3);
 	LInsert(&list, 4);
 	LInsert(&list, 5);
 	LInsertFront(&list, 2);
 	LInsertFront(&list, 1);
-	
-	// ¸®½ºÆ®¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ¸¦ ¿¬¼Ó 3È¸ Ãâ·Â ///////
-	if(LFirst(&list, &data))
+
+	// ë¦¬ìŠ¤íŠ¸ì— ì €ì¥ëœ ë°ì´í„°ë¥¼ ì—°ì† 3íšŒ ì¶œë ¥ ///////
+	if (LFirst(&list, &data))
 	{
 		printf("%d ", data);
-		
-		for(i=0; i<LCount(&list)*3-1; i++)
+
+		for (i = 0; i < LCount(&list) * 3 - 1; i++)
 		{
-			if(LNext(&list, &data))
+			if (LNext(&list, &data))
 				printf("%d ", data);
 		}
 	}
 	printf("\n");
 
-	// 2ÀÇ ¹è¼ö¸¦ Ã£¾Æ¼­ ¸ğµÎ »èÁ¦ ///////
+	// 2ì˜ ë°°ìˆ˜ë¥¼ ì°¾ì•„ì„œ ëª¨ë‘ ì‚­ì œ ///////
 	nodeNum = LCount(&list);
 
-	if(nodeNum != 0)
+	if (nodeNum != 0)
 	{
 		LFirst(&list, &data);
-		if(data%2 == 0)
+		if (data % 2 == 0)
 			LRemove(&list);
-		
-		for(i=0; i < nodeNum-1; i++)
+
+		for (i = 0; i < nodeNum - 1; i++)
 		{
 			LNext(&list, &data);
-			if(data%2 == 0)
+			if (data % 2 == 0)
 				LRemove(&list);
 		}
 	}
 
-	// ÀüÃ¼ µ¥ÀÌÅÍ 1È¸ Ãâ·Â ///////
-	if(LFirst(&list, &data))
+	// ì „ì²´ ë°ì´í„° 1íšŒ ì¶œë ¥ ///////
+	if (LFirst(&list, &data))
 	{
 		printf("%d ", data);
-		
-		for(i=0; i<LCount(&list)-1; i++)
+
+		for (i = 0; i < LCount(&list) - 1; i++)
 		{
-			if(LNext(&list, &data))
+			if (LNext(&list, &data))
 				printf("%d ", data);
 		}
 	}

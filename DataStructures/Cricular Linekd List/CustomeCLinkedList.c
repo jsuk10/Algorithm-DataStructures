@@ -2,24 +2,27 @@
 #include <stdlib.h>
 #include "CLinkedList.h"
 
-//ÃÊ±âÈ­ ÇØÁÖ´Â ÇÔ¼ö
-void ListInit(List* plist) {
+//ì´ˆê¸°í™” í•´ì£¼ëŠ” í•¨ìˆ˜
+void ListInit(List *plist)
+{
     plist->tail = NULL;
     plist->cur = NULL;
     plist->before = NULL;
     plist->numOfData = 0;
-
 }
 
-//tail¿¡ »ðÀÔ
-void LInsert(List* plist, Data data) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
+//tailì— ì‚½ìž…
+void LInsert(List *plist, Data data)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
     newNode->data = data;
-    if (plist->tail == NULL) {
+    if (plist->tail == NULL)
+    {
         plist->tail = newNode;
         newNode->next = newNode;
     }
-    else {
+    else
+    {
         newNode->next = plist->tail->next;
         plist->tail->next = newNode;
         plist->tail = newNode;
@@ -27,25 +30,29 @@ void LInsert(List* plist, Data data) {
     plist->numOfData++;
 }
 
-//head¿¡ »ðÀÔ
-void LInsertFront(List* plist, Data data) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
+//headì— ì‚½ìž…
+void LInsertFront(List *plist, Data data)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
     newNode->data = data;
-    if (plist->tail == NULL) {
+    if (plist->tail == NULL)
+    {
         plist->tail = newNode;
         newNode->next = newNode;
     }
-    else {
+    else
+    {
         newNode->next = plist->tail->next;
         plist->tail->next = newNode;
     }
     plist->numOfData++;
 }
 
-//Ã³À½ ÂüÁ¶ÇÒ °æ¿ì
-//flase°¡ Ãâ·ÂµÉ°æ¿ì´Â µ¥ÀÌÅÍ(³ëµå)°¡ ¾ø´Â °æ¿ì
-//true´Â ÀÖ°í ÇöÀç ÀÎµ¦½º¿¡ cur°ú before¸¦ ³Ö¾îÁÜ
-int LFirst(List* plist, Data* pdata) {
+//ì²˜ìŒ ì°¸ì¡°í•  ê²½ìš°
+//flaseê°€ ì¶œë ¥ë ê²½ìš°ëŠ” ë°ì´í„°(ë…¸ë“œ)ê°€ ì—†ëŠ” ê²½ìš°
+//trueëŠ” ìžˆê³  í˜„ìž¬ ì¸ë±ìŠ¤ì— curê³¼ beforeë¥¼ ë„£ì–´ì¤Œ
+int LFirst(List *plist, Data *pdata)
+{
     if (plist->tail == NULL)
         return FALSE;
 
@@ -56,8 +63,9 @@ int LFirst(List* plist, Data* pdata) {
     return TRUE;
 }
 
-//´ÙÀ½ ÀÎµ¦½º¸¦ ÂüÁ¶ÇÒ °æ¿ì
-int LNext(List* plist, Data* pdata) {
+//ë‹¤ìŒ ì¸ë±ìŠ¤ë¥¼ ì°¸ì¡°í•  ê²½ìš°
+int LNext(List *plist, Data *pdata)
+{
     if (plist->tail == NULL)
         return FALSE;
     plist->before = plist->cur;
@@ -67,18 +75,22 @@ int LNext(List* plist, Data* pdata) {
     return TRUE;
 }
 
-//µ¥ÀÌÅÍ¸¦ Áö¿öÁÜ
-//Áö¿ï µ¥ÀÌÅÍ°¡ ²¿¸®¸¦ °¡¸£Å³ °æ¿ì ÁÖÀÇÇØ¼­ Â¥º¼°Í.
-Data LRemove(List* plist) {
+//ë°ì´í„°ë¥¼ ì§€ì›Œì¤Œ
+//ì§€ìš¸ ë°ì´í„°ê°€ ê¼¬ë¦¬ë¥¼ ê°€ë¥´í‚¬ ê²½ìš° ì£¼ì˜í•´ì„œ ì§œë³¼ê²ƒ.
+Data LRemove(List *plist)
+{
 
     Data DataTemp = plist->cur->data;
     Node *NodeTemp = plist->cur;
-    
-    if (NodeTemp == plist->tail) {
-        if (plist->tail == plist->tail->next) {
+
+    if (NodeTemp == plist->tail)
+    {
+        if (plist->tail == plist->tail->next)
+        {
             plist->tail = NULL;
         }
-        else {
+        else
+        {
             plist->tail == plist->before;
         }
     }
@@ -91,6 +103,7 @@ Data LRemove(List* plist) {
     return DataTemp;
 }
 
-int LCount(List* plist) {
+int LCount(List *plist)
+{
     return plist->numOfData;
 }
