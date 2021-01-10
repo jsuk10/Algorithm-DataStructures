@@ -8,7 +8,7 @@
 <h2>2. Practice Data Structures with c</h2>
 <h3>with "윤성우의 열혈 자료구조"</h3> 
 
-1.v커밋 명명 규칙
+1.커밋 명명 규칙
 - feat : 구현체 
 
 2.구현 내용
