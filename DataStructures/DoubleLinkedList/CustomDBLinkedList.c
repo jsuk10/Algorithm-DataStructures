@@ -57,9 +57,6 @@ int LPrevious(List *plist, Data *pdata)
 	return TRUE;
 }
 
-Data LRemove(List *plist)
-{
-}
 
 int LCount(List *plist)
 {
