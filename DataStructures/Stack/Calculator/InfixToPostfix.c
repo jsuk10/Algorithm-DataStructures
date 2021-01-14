@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "../ListStack/ListBaseStack.h"
+#include "../ListStack/CustomListBaseStack.c"
 
 int GetOpPrec(char op)
 {
@@ -23,7 +24,7 @@ int GetOpPrec(char op)
 	}
 
 	// 등록되지 않은 연산자
-	return -1; 
+	return -1;
 }
 
 //연산자간의 우선순위를 비교해주는 함수
@@ -46,7 +47,7 @@ void ConvToRPNExp(char exp[])
 	Stack stack;
 	int expLen = strlen(exp);
 	//변환된 수식 담는 공간
-	char *convExp = (char *)malloc(expLen + 1); 
+	char *convExp = (char *)malloc(expLen + 1);
 
 	int i, idx = 0;
 	char tok, popOp;
