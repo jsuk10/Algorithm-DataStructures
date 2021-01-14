@@ -42,7 +42,7 @@ Data SPop(Stack *pstack)
 	Node *tempNode = pstack->head;
 
 	pstack->head = pstack->head->next;
-	
+
 	free(tempNode);
 	return tempData;
 }

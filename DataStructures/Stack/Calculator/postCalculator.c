@@ -2,9 +2,11 @@
 #include <string.h>
 #include <ctype.h>
 #include "postCalculator.h"
+
 //만약 vscode에서 InfixCalculatorMain를 작동시키려면 아래 두줄 주석해야함
-#include "../ListStack/ListBaseStack.h"
+#ifndef __LB_STACK_H__
 #include "../ListStack/CustomListBaseStack.c"
+#endif
 
 int EvalRPNExp(char exp[])
 {

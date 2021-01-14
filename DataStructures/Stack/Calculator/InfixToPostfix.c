@@ -2,7 +2,6 @@
 #include <string.h>
 #include <ctype.h>
 #include "InfixToPostfix.h"
-#include "../ListStack/ListBaseStack.h"
 #include "../ListStack/CustomListBaseStack.c"
 
 int GetOpPrec(char op)

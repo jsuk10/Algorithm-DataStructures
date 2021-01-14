@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "InfixToPostfix.h"
 #include "InfixToPostfix.c"
 
 int main()

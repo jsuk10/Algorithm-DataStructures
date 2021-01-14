@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "ListBaseStack.h"
 #include "CustomListBaseStack.c"
 
 int main(void)
