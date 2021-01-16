@@ -1,2 +1,4 @@
 freopen("../input.txt", "r", stdin);
+freopen("input.txt", "r", stdin);
+
 를 값 입력하기전에 넣어줌
