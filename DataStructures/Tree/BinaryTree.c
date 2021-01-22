@@ -31,12 +31,23 @@ BTreeNode *GetRightSubTree(BTreeNode *bt)
 void MakeLeftSubTree(BTreeNode *main, BTreeNode *sub)
 {
     if (main->left != NULL)
-        free(main->left);
+        DeleteTree(main->left);
     main->left = sub;
 }
 void MakeRightSubTree(BTreeNode *main, BTreeNode *sub)
 {
     if (main->right != NULL)
-        free(main->right);
+        DeleteTree(main->right);
     main->right = sub;
+}
+
+void DeleteTree(BTreeNode *main)
+{
+
+    if (main == NULL)
+        return;
+
+    DeleteTree(main->left);
+    DeleteTree(main->right);
+    free(main);
 }
