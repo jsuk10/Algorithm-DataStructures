@@ -1,33 +1,38 @@
 #include <stdio.h>
 #include "BinaryTree.h"
 #include "BinaryTree.c"
+#include "BinartTreeTraverse.h"
 
-void InorderTraverse(BTreeNode *bt)
+void ShowData(BTData data)
 {
-	if (bt == NULL)
-		return;
-
-	InorderTraverse(bt->left);
-	printf("%d ", bt->data);
-	InorderTraverse(bt->right);
+	printf("%d ", data);
 }
 
-void PreorderTraverse(BTreeNode *bt)
+void InorderTraverse(BTreeNode *bt, VisitFuncPtr action)
 {
 	if (bt == NULL)
 		return;
 
-	printf("%d ", bt->data);
-	PreorderTraverse(bt->left);
-	PreorderTraverse(bt->right);
+	InorderTraverse(bt->left, action);
+	action(bt->data);
+	InorderTraverse(bt->right, action);
 }
 
-void PostorderTraverse(BTreeNode *bt)
+void PreorderTraverse(BTreeNode *bt, VisitFuncPtr action)
 {
 	if (bt == NULL)
 		return;
 
-	PostorderTraverse(bt->left);
-	PostorderTraverse(bt->right);
-	printf("%d ", bt->data);
+	action(bt->data);
+	PreorderTraverse(bt->left, action);
+	PreorderTraverse(bt->right, action);
+}
+void PostorderTraverse(BTreeNode *bt, VisitFuncPtr action)
+{
+	if (bt == NULL)
+		return;
+
+	PostorderTraverse(bt->left, action);
+	PostorderTraverse(bt->right, action);
+	action(bt->data);
 }

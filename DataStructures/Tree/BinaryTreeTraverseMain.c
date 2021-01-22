@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "BinaryTree.h"
+#include "BinartTreeTraverse.h"
 #include "BinartTreeTraverse.c"
 
 int main(void)
@@ -39,15 +40,15 @@ int main(void)
 	MakeLeftSubTree(bt9, bt8);
 
 	printf("Preorder\n");
-	PreorderTraverse(bt6);
+	PreorderTraverse(bt6, ShowData);
 	printf("\n");
 
 	printf("Inorder\n");
-	InorderTraverse(bt6);
+	InorderTraverse(bt6, ShowData);
 	printf("\n");
 
 	printf("Postorder\n");
-	PostorderTraverse(bt6);
+	PostorderTraverse(bt6, ShowData);
 
 	return 0;
 }
