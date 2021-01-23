@@ -4,7 +4,10 @@
 
 void ShowData(BTData data)
 {
-	printf("%d ", data);
+	if (data < 10 && data >= 0)
+		printf("%d ", data);
+	else
+		printf("%c ", data);
 }
 
 void InorderTraverse(BTreeNode *bt, VisitFuncPtr action)
@@ -12,9 +15,13 @@ void InorderTraverse(BTreeNode *bt, VisitFuncPtr action)
 	if (bt == NULL)
 		return;
 
+	if (bt->left != NULL)
+		printf("(");
 	InorderTraverse(bt->left, action);
 	action(bt->data);
 	InorderTraverse(bt->right, action);
+	if (bt->right != NULL)
+		printf(")");
 }
 
 void PreorderTraverse(BTreeNode *bt, VisitFuncPtr action)
