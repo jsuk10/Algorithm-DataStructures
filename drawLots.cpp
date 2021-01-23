@@ -7,6 +7,8 @@ using namespace std;
 
 int main()
 {
+    freopen("input.txt", "r", stdin);
+
     srand(time(NULL));
 
     vector<string> names, copyNames;
@@ -25,7 +27,7 @@ int main()
     cout << "문제의 개수를 입력해주세요\n";
     cin >> problemNum;
 
-    cout << "중복이 가능합니까? (Y이외에는 전부 N)";
+    cout << "중복이 가능합니까? (Y이외에는 전부 N)\n";
     cin >> overlap;
 
     if (overlap == 'Y' || overlap == 'y')
@@ -43,7 +45,7 @@ int main()
                 copyNames = names;
 
             int temp = rand() % copyNames.size();
-            cout << i + 1 << "번문제는 " << copyNames[temp] << "입니다\n";
+            cout << i << "번문제는 " << copyNames[temp] << "입니다\n";
             copyNames.erase(copyNames.begin() + temp);
         }
     }
