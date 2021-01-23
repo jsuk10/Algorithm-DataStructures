@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include "BinaryTree.h"
 #include "BinaryTree.c"
-#include "BinartTreeTraverse.h"
+#include "BinaryTreeTraverse.h"
 
 void ShowData(BTData data)
 {

@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include "BinaryTree.h"
-#include "BinartTreeTraverse.h"
-#include "BinartTreeTraverse.c"
+#include "BinaryTreeTraverse.c"
 
 int main(void)
 {
