@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+
 using namespace std;
 
 void LinearSearch(int targetNum, vector<int> arr,int index, int count) {
