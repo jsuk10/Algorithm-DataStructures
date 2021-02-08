@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "BinaryTreeTraverse.c"
 #include "BinaryTreeAddChange.h"
+//교재 BinaryTree3
 
 // 왼쪽 자식 연결을 끊고 왼쪽 자식 반환
 BTreeNode *RemoveLeftSubTree(BTreeNode *bt)
