@@ -12,7 +12,8 @@ void quadTree(int X, int Y, int size)
 {
     if (size == 0)
         return;
-    int firstData = arr[X][Y];
+
+    int firstData = arr[Y][X];
     bool isCombine = true;
 
     for (int i = Y; i < Y + size; i++)
@@ -33,7 +34,6 @@ void quadTree(int X, int Y, int size)
     if (isCombine)
     {
         answer[firstData]++;
-        cout << X << " " << Y << " " << size << "\n";
         return;
     }
 
