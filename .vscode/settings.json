@@ -42,6 +42,13 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "map": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "binarysearchtree.h": "c",
+        "binarytree.h": "c",
+        "binarytreetraverse.h": "c",
+        "binarytree.c": "cpp",
+        "binarysearchtree2.h": "c",
+        "binarytreeaddchange.h": "c",
+        "binarysearchtree2.c": "cpp"
     }
 }
