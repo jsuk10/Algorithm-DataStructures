@@ -10,15 +10,14 @@ int m, n, t, k, tempX, tempY, ans;
 int arrX[] = {1, -1, 0, 0},
     arrY[] = {0, 0, 1, -1};
 
-
-void BFS(int y, int x)
+void DFS(int y, int x)
 {
     visited[y][x] = 1;
     for (int i = 0; i < 4; i++)
     {
         if (map[y + arrY[i]][x + arrX[i]] == 1 && visited[y + arrY[i]][x + arrX[i]] == 0)
         {
-            BFS(y + arrY[i], x + arrX[i]);
+            DFS(y + arrY[i], x + arrX[i]);
         }
     }
 }
@@ -50,7 +49,7 @@ int main()
                 if (map[i][j] == 1 && visited[i][j] == 0)
                 {
                     ans++;
-                    BFS(i, j);
+                    DFS(i, j);
                 }
             }
         }
