@@ -42,7 +42,6 @@ void Process()
             else if (j > items[i])
             {
                 dp[j] = dp[j] + dp[j - items[i]];
-                // cout << j << " " << j - items[i] << "\n";
             }
         }
     }
