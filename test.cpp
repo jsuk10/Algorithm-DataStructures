@@ -2,24 +2,21 @@
 #include <vector>
 #include <string>
 
-#include "LeetCode/1week/groupAnagrams.cpp"
+#include "testclass.cpp"
 
 using namespace std;
 
 int main()
 {
+	vector<int> nums = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
 	Solution solution;
-	vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-	vector<vector<string>> result = solution.groupAnagrams(strs);
+	
+	cout << solution.removeDuplicates(nums);
+	cout << endl;
 
-	for (const auto &group : result)
+	for (auto a : nums)
 	{
-		for (const auto &word : group)
-		{
-			cout << word << " ";
-		}
-		cout << endl;
+		cout << a;
 	}
-
-	return 0;
+	cout << endl;
 }
