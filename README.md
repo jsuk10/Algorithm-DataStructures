@@ -1,8 +1,13 @@
 <h1>algorithm & Data Structures</h1>
 <h2>1. Practice the algorithm</h2>
- <h3>with BaekJun c++</h3>  
-1. 커밋 명명 규칙 
+ <h3>with BaekJun c++</h3>
+    1. 커밋 명명 규칙 
   - feat : "문제 번호" "문제 이름" "난이도"  
+  </br>
+  <h3>with leetcode c++</h3> 
+    1. 커밋 명명 규칙 
+    - leatCode : [컬랙션] "난이도"  
+    - 문제 이름
   </br>
  
 <h2>2. Practice Data Structures with c</h2>
