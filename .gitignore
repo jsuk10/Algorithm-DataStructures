@@ -33,4 +33,4 @@
 
 test*.cpp
 
-.vscode/
+*vscode\*
