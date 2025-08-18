@@ -3,14 +3,13 @@
 생성일: 2025년 8월 11일 오후 10:14
 태그: Array and Strings
 
-[노션 페이지](https://www.notion.so/1-24cbed59c3638042afd1da5f9152749b?source=copy_link)
-
 # 3 Sum
 
 [Explore - LeetCode](https://leetcode.com/explore/interview/card/top-interview-questions-medium/103/array-and-strings/776/)
 
 <aside>
 💡
+
 Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.
 
 Notice that the solution set must not contain duplicate triplets.
@@ -35,6 +34,12 @@ Notice that the solution set must not contain duplicate triplets.
         
         ⇒ C++ stl의 map은 ordered_map 이므로 0을 넘어가는 순간 break걸어도 될듯
         
+5. Two Pointer사용
+    
+    정렬을 한 뒤에 `O(log n)` 정렬된 순으로 이동하여 중복을 검출할 수 있다.
+    
+    투포인터 순회 `O(n^2)`
+    
 
 ## 3중 for (시간 초과)
 
@@ -105,54 +110,137 @@ Notice that the solution set must not contain duplicate triplets.
 
 ## map사용
 
-`O(n^2 logn)`
-
-```cpp
-class Solution {
-public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
+- `O(n^2 logn)`
+    
+    ```cpp
+    class Solution {
+    public:
+        vector<vector<int>> threeSum(vector<int>& nums) {
         set<vector<int>> answer;
-		map<int, int> numset;
+    		map<int, int> numset;
+    
+    		// O(n)
+    		for (auto num : nums)
+    		{
+    			numset[num]++;
+    		}
+    
+    		for (auto i = numset.begin(); i != numset.end(); ++i)
+    		{
+    			numset[i->first]--;
+    			auto j = i;
+    
+    			// 해당 값이 하나 밖에 없을 경우 다음 원소를 찾고, 아닐 경우 j에서 시작
+    			if (numset[i->first] <= 0)
+    			{
+    				j++;
+    			}
+    
+    			for (;  j != numset.end(); ++j)
+    			{
+    				numset[j->first]--;
+    
+    				int targetvalue = -(i->first + j->first);
+    				
+    				auto k = numset.find(targetvalue);
+    				if (k != numset.end() && k->second > 0)
+    				{
+    					vector<int> temp = {j->first, i->first, targetvalue};
+    					sort(temp.begin(), temp.end());
+    					answer.insert(temp);
+    				}
+    				numset[j->first]++;
+    			}
+    			numset[i->first]++;
+    		}
+    
+    		return vector<vector<int>>(answer.begin(), answer.end());;
+        }
+    };
+    ```
+    
 
-		// O(n)
-		for (auto num : nums)
-		{
-			numset[num]++;
-		}
+### Two Pointer 사용
 
-		for (auto i = numset.begin(); i != numset.end(); ++i)
-		{
-			numset[i->first]--;
-			auto j = i;
-
-			// 해당 값이 하나 밖에 없을 경우 다음 원소를 찾고, 아닐 경우 j에서 시작
-			if (numset[i->first] <= 0)
-			{
-				j++;
-			}
-
-			for (;  j != numset.end(); ++j)
-			{
-				numset[j->first]--;
-
-				int targetvalue = -(i->first + j->first);
-				// cout << "i: " << i->first << ", j: " << j->first << ", targetvalue: " << targetvalue << endl;
-				auto k = numset.find(targetvalue);
-				if (k != numset.end() && k->second > 0)
-				{
-					vector<int> temp = {j->first, i->first, targetvalue};
-					sort(temp.begin(), temp.end());
-					answer.insert(temp);
-				}
-				numset[j->first]++;
-			}
-			numset[i->first]++;
-		}
-
-		return vector<vector<int>>(answer.begin(), answer.end());;
-    }
-};
-```
+- `O(n^2)`
+    
+    ```cpp
+    #include <vector>
+    #include <set>
+    #include <map>
+    #include <algorithm>
+    
+    using namespace std;
+    
+    class Solution {
+    public:
+        vector<vector<int>> threeSum(vector<int>& nums) {
+            vector<vector<int>> answer;
+    
+            sort(nums.begin(), nums.end());
+    
+            auto first = nums.begin();
+            while (first != nums.end())
+            {
+                // 중복 제거
+                if (first != nums.begin() && *first == *(first -1))
+                {
+                    first++;
+                    continue;
+                }
+    
+                auto second = first + 1;
+                auto three = nums.end() - 1;
+                while (second < three)
+                {
+                    int sum = *first + *second + *three;
+                    if (sum > 0)
+                    {
+                        three--;
+                    }
+                    else if (sum < 0)
+                    {
+                        second++;
+                    }
+                    else if (sum == 0)
+                    {
+                        answer.push_back({*first, *second, *three});
+                        second++;
+                        three--;
+                        
+                        // 중복 제거
+                        while (second < three && *three == *(three + 1)) three--;
+                        while (second < three && *second == *(second - 1)) second++;
+                    }
+                }
+                first++;
+            }
+    
+            return answer;
+        }
+    
+    };
+    ```
+    
+    - 정렬을 통해 같은 값이 다음에 오게될 경우 중복을 건너뛰는 방법 채용.
+        
+        <aside>
+        💡
+        
+        투포인터 핵심
+        
+        1. 배열을 **오름차순 정렬**
+        2. **두 포인터**를 배열의 양 끝에 둠
+            - 왼쪽 포인터 `l = 0`, 오른쪽 포인터 `r = n-1`
+        3. 합을 계산 후 조건에 따라 포인터 이동:
+            - 합이 **목표값보다 작으면** → `l++` (왼쪽 값 키우기)
+            - 합이 **목표값보다 크면** → `r--` (오른쪽 값 줄이기)
+            - 합이 **목표값과 같으면** → 정답 저장 후, 양쪽 포인터 이동
+        
+        ❗포인터를 이동할 때, 이전 값과 같으면 중복으로 판단하여 한번 더 이동한다.
+        
+        </aside>
+        
 
 # **Set Matrix Zeroes**
 
@@ -160,6 +248,7 @@ public:
 
 <aside>
 💡
+
 Given an `m x n` integer matrix `matrix`, if an element is `0`, set its entire row and column to `0`'s.
 
 ⇒ 배열에 0이 있으면 가로 세로를 0으로 바꿔주는 문제
@@ -275,7 +364,7 @@ public:
 | 코드 | 시간 복잡도 | 공간 복잡도 | 특징 |
 | --- | --- | --- | --- |
 | **첫 번째** (set 사용) | `O(m * n * log(max(m, n)))`  | `O(m + n)` | 직관적, 구현 간단 |
-| **두 번째** (matrix 재활용) | `O(m * n)` | `O(1)` | 공간 효율 최고, 구현 복잡 |
+| **두 번째** (matrix 재활용) | `O(m * n)` | `O(m + n)` | 공간 효율 최고, 구현 복잡 |
 
 **첫 번째** (set 사용)
 
@@ -287,6 +376,7 @@ public:
 
 <aside>
 💡
+
 Given an array of strings `strs`, group the anagrams together. You can return the answer in **any order**.
 ⇒ 에너그램 그룹화 하기.
 
@@ -309,10 +399,10 @@ public:
 		vector<vector<string>> answer;
 		for (string value : strs)
 		{
-			string sortedvalue = value;
-			sort(sortedvalue.begin(), sortedvalue.end());
+			string sortedValue = value;
+			sort(sortedValue.begin(), sortedValue.end());
 
-			anagramsMap[sortedvalue].push_back(value);
+			anagramsMap[sortedValue].push_back(value);
 		}
 
 		for (auto a : anagramsMap)
