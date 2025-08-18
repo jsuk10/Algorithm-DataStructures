@@ -8,9 +8,10 @@ using namespace std;
 
 int main()
 {
-	string s = "leetcode";
+	string s = "rat";
+	string t = "car";
 	Solution solution;
-	cout << solution.firstUniqChar(s) << endl;
+	cout << solution.isAnagram(s,t) << endl;
 	
 	return 0;
 }
