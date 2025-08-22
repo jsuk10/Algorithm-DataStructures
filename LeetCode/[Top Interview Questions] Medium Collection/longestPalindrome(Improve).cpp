@@ -10,39 +10,34 @@
 
 using namespace std;
 
-// Runtime  : 20ms     53.74%
-// Memory   : 35.3MB   29.24%
+// Runtime  : 3ms     97.90%
+// Memory   : 9.3MB   82.01%
 
 class Solution
 {
 public:
     string longestPalindrome(string s)
     {
-        string ans;
+        int bestL = 0, bestLen = 0;
 
         for (int centerIndex = 0; centerIndex < s.size(); ++centerIndex)
         {
             int L = centerIndex, R = centerIndex;
-            while (L - 1 >= 0 && s[centerIndex] == s[L - 1])
-            {
-                L--;
-            }
-
-            while (R + 1 <= s.size() && s[centerIndex] == s[R + 1])
-            {
+            while (R + 1 < s.size() && s[R + 1] == s[centerIndex])
                 R++;
-            }
 
-            while (L - 1 >= 0 && R + 1 <= s.size() && s[L - 1] == s[R + 1])
+            while (L - 1 >= 0 && R + 1 < s.size() && s[L - 1] == s[R + 1])
             {
                 L--;
                 R++;
             }
 
-            int len = R - L + 1;
-
-            ans = ans.size() > len ? ans : s.substr(L, R - L + 1);
+            if (R - L + 1 > bestLen)
+            {
+                bestLen = R - L + 1;
+                bestL = L;
+            }
         }
-        return ans;
+        return s.substr(bestL, bestLen);
     }
 };
