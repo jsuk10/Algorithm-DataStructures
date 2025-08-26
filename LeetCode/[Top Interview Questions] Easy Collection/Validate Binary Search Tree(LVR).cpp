@@ -7,7 +7,8 @@
 #include <unordered_set>
 #include <cmath>
 #include <cstring>
-#include <queue>
+#include <deque>
+#include <stack>
 
 using namespace std;
 
@@ -31,35 +32,31 @@ struct TreeNode
 class Solution
 {
 public:
-    vector<vector<int>> levelOrder(TreeNode *root)
+    bool isValidBST(TreeNode *root)
     {
-        vector<vector<int>> answer;
-        queue<TreeNode *> qu;
-
-        qu.push(root);
-        int count = 1;
-        int vectorIndex = 0;
-        answer.push_back(vector<int>());
-
-        while (!qu.empty())
+        deque<TreeNode *> de;
+        TreeNode *curr = root;
+        TreeNode *pre = nullptr;
+        while (curr || !de.empty())
         {
-            if (count-- == 0)
+            while (curr)
             {
-                count = answer[vectorIndex].size() * 2;
-                vectorIndex++;
-                answer.push_back(vector<int>());
+                de.push_back(curr);
+                curr = curr->left;
             }
 
-            TreeNode *curr = qu.front();
-            qu.pop();
-            if (curr != nullptr)
+            curr = de.back();
+            de.pop_back();
+
+            if (curr && pre && curr->val <= pre->val)
             {
-                answer[vectorIndex].push_back(curr->val);
-                qu.push(curr->left);
-                qu.push(curr->right);
+                return false;
             }
+
+            pre = curr;
+            curr = curr->right;
         }
 
-        return answer;
+        return true;
     }
 };
