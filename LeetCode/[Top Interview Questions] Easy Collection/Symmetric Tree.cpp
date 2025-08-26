@@ -13,7 +13,7 @@
 using namespace std;
 
 // Runtime  : 0ms      100.00%
-// Memory   : 19.5MB   62.69
+// Memory   : 18.9MB   ??
 
 // Definition for a binary tree node.
 struct TreeNode
@@ -26,8 +26,6 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-// 0ms      100.00 %
-// 16.8MB   94.42 %
 class Solution
 {
 public:

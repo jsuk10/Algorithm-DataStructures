@@ -12,7 +12,7 @@
 using namespace std;
 
 // Runtime  : 0ms      100.00%
-// Memory   : 19.5MB   62.69
+// Memory   : 16.68    97.54%
 
 // Definition for a binary tree node.
 struct TreeNode
@@ -24,9 +24,6 @@ struct TreeNode
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
-
-// 0ms      100.00 %
-// 16.8MB   94.42 %
 
 class Solution
 {
@@ -43,13 +40,6 @@ public:
 
         while (!qu.empty())
         {
-            if (count-- == 0)
-            {
-                count = answer[vectorIndex].size() * 2;
-                vectorIndex++;
-                answer.push_back(vector<int>());
-            }
-
             TreeNode *curr = qu.front();
             qu.pop();
             if (curr != nullptr)
@@ -58,6 +48,18 @@ public:
                 qu.push(curr->left);
                 qu.push(curr->right);
             }
+
+            if (--count == 0)
+            {
+                count = answer[vectorIndex].size() * 2;
+                vectorIndex++;
+                answer.push_back(vector<int>());
+            }
+        }
+
+        while (answer.size() != 0 && answer.back().size() == 0)
+        {
+            answer.pop_back();
         }
 
         return answer;
