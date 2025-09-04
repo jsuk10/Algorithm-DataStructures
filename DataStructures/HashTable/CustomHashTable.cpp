@@ -14,7 +14,8 @@ class CustomHashTable : public IHashTable<Key, Value>
 public:
     CustomHashTable(int initialCapacity = 100)
     {
-        Array = vector<Value *>(initialCapacity);
+        // init nullptr
+        Array = vector<Value *>(initialCapacity, nullptr);
     }
 
     ~CustomHashTable() override
@@ -41,6 +42,8 @@ public:
         else
         {
             delete target;
+            // init nullptr, Invalid memory access defense
+            Array[index] = nullptr;
             return true;
         }
     }
@@ -67,12 +70,15 @@ public:
 
     void clear() override
     {
+        // add memeory free
+        for (auto item : array)
+            delete item;
         Array.clear();
     }
 
-    Value *operator[](Key key) const override
+    Value *operator[](Key &key) const override
     {
-        auto target = find(key);
+        Value *target = find(key);
         if (target == nullptr)
         {
             throw std::runtime_error("Invalie Key is not contain!");
@@ -82,7 +88,7 @@ public:
 
 private:
     // 해쉬 구현은 일단 std::hash<T>사용
-    int Hashing(Key key) const
+    int Hashing(Key &key) const
     {
         return static_cast<int>(std::hash<Key>{}(key)) % Array.size();
     }
