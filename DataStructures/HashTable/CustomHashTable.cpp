@@ -82,7 +82,7 @@ public:
         TableSize = 0;
     }
 
-    Value *operator[](const Key &key) const override
+    Value *operator[](const Key &key) override
     {
         Value *target = find(key);
         if (target == nullptr)
