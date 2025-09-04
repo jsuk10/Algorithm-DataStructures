@@ -9,62 +9,82 @@ using namespace std;
 template <typename Key, typename Value>
 class CustomHashTable : public IHashTable<Key, Value>
 {
-    vector<Value> Array;
+    vector<Value *> Array;
 
 public:
     CustomHashTable(int initialCapacity = 100)
     {
-        Array = vector<Value>(initialCapacity);
+        Array = vector<Value *>(initialCapacity);
     }
 
-    ~CustomHashTable() override {}
+    ~CustomHashTable() override
+    {
+        for (auto Item : Array)
+        {
+            delete Item;
+        }
+    }
 
     void insert(const Key &key, const Value &value) override
     {
         int index = Hashing(key);
-        Array[index] = value;
+        Array[index] = new Value(value);
     }
 
     bool remove(const Key &key) override
     {
-        return false;
+        Value *target = find(key);
+        if (target == nullptr)
+        {
+            return false;
+        }
+        else
+        {
+            delete target;
+            return true;
+        }
     }
 
-    bool find(const Key &key, Value &outValue) const override
+    Value *find(const Key &key) const override
     {
-        return false;
+        return Array[Hashing(key)];
     }
 
     bool contains(const Key &key) const override
     {
-        return false;
+        return find(key) != nullptr;
     }
 
     int size() const override
     {
-        return 0;
+        return Array.size();
     }
 
     bool empty() const override
     {
-        return true;
+        return Array.size() == 0;
     }
 
     void clear() override
     {
+        Array.clear();
     }
 
-    Value operator[](Key target) const override
+    Value *operator[](Key key) const override
     {
-        int index = Hashing(target);
-        return Array[index];
+        auto target = find(key);
+        if (target == nullptr)
+        {
+            throw std::runtime_error("Invalie Key is not contain!");
+        }
+        return target;
     };
 
 private:
     // 해쉬 구현은 일단 std::hash<T>사용
-    int Hashing(Key target) const
+    int Hashing(Key key) const
     {
-        return static_cast<int>(std::hash<Key>{}(target)) % Array.size();
+        return static_cast<int>(std::hash<Key>{}(key)) % Array.size();
     }
 };
 
@@ -75,5 +95,5 @@ int main()
     CustomHashTable<string, int> hash;
     hash.insert(s, 10);
 
-    cout << hash[s] << endl;
+    cout << *hash[s] << endl;
 }
