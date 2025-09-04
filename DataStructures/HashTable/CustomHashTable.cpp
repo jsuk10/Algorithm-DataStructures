@@ -10,6 +10,7 @@ template <typename Key, typename Value>
 class CustomHashTable : public IHashTable<Key, Value>
 {
     vector<Value *> Array;
+    int TableSize = 0;
 
 public:
     CustomHashTable(int initialCapacity = 100)
@@ -30,6 +31,7 @@ public:
     {
         int index = Hashing(key);
         Array[index] = new Value(value);
+        TableSize++;
     }
 
     bool remove(const Key &key) override
@@ -46,6 +48,7 @@ public:
         delete Array[index];
         // init slot, invalid memory access defend
         Array[index] = nullptr;
+        TableSize--;
         return true;
     }
 
@@ -61,20 +64,22 @@ public:
 
     int size() const override
     {
-        return Array.size();
+        return TableSize;
     }
 
     bool empty() const override
     {
-        return Array.size() == 0;
+        return TableSize == 0;
     }
 
     void clear() override
     {
-        // add memeory free
+        int Capacity = Array.size();
+        // add memory free
         for (auto item : Array)
             delete item;
-        Array.clear();
+        Array = vector<Value *>(Capacity, nullptr);
+        TableSize = 0;
     }
 
     Value *operator[](const Key &key) const override
@@ -82,7 +87,7 @@ public:
         Value *target = find(key);
         if (target == nullptr)
         {
-            throw std::runtime_error("Invalie Key is not contain!");
+            throw std::runtime_error("Invalid Key is not contain!");
         }
         return target;
     };
