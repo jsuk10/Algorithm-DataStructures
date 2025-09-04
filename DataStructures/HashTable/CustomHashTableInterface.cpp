@@ -32,5 +32,5 @@ public:
     // 전체 초기화
     virtual void clear() = 0;
 
-    virtual Value *operator[](Key &target) const = 0;
+    virtual Value *operator[](const Key &target) const = 0;
 };

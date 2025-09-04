@@ -34,18 +34,19 @@ public:
 
     bool remove(const Key &key) override
     {
-        Value *target = find(key);
+        int index = Hashing(key);
+
+        Value *target = Array[index];
         if (target == nullptr)
         {
             return false;
         }
-        else
-        {
-            delete target;
-            // init nullptr, Invalid memory access defense
-            Array[index] = nullptr;
-            return true;
-        }
+
+        // memory free
+        delete Array[index];
+        // init slot, invalid memory access defend
+        Array[index] = nullptr;
+        return true;
     }
 
     Value *find(const Key &key) const override
@@ -71,12 +72,12 @@ public:
     void clear() override
     {
         // add memeory free
-        for (auto item : array)
+        for (auto item : Array)
             delete item;
         Array.clear();
     }
 
-    Value *operator[](Key &key) const override
+    Value *operator[](const Key &key) const override
     {
         Value *target = find(key);
         if (target == nullptr)
@@ -88,7 +89,7 @@ public:
 
 private:
     // 해쉬 구현은 일단 std::hash<T>사용
-    int Hashing(Key &key) const
+    int Hashing(const Key &key) const
     {
         return static_cast<int>(std::hash<Key>{}(key)) % Array.size();
     }
