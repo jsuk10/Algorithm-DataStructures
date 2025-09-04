@@ -1,6 +1,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <functional>
 #include "CustomHashTableInterface.cpp"
 
 using namespace std;
@@ -19,21 +20,28 @@ public:
         Entry *nextEntry;
     };
 
+    using HashFuncType = std::function<int(const Key &)>;
+
     int tableSize = 0;
 
     vector<Entry *> array;
+    HashFuncType customHash;
 
 public:
-    CustomHashTable2(int size = 100)
-    {
-        array = vector<Entry *>(size, nullptr);
-        tableSize = 0;
-    }
+    CustomHashTable2(int size = 100, HashFuncType customHash = nullptr) : tableSize(0), array(size, nullptr), customHash(customHash) {}
 
     virtual ~CustomHashTable2()
     {
-        for (auto a : array)
-            delete a;
+        for (int i = 0; i < array.size(); ++i)
+        {
+            Entry *current = array[i];
+            while (current)
+            {
+                Entry *tmp = current;
+                current = current->nextEntry;
+                delete tmp;
+            }
+        }
     }
 
     // 값 추가 또는 업데이트
@@ -150,13 +158,21 @@ private:
     // 해쉬 구현은 일단 std::hash<T>사용
     int Hashing(const Key &key) const
     {
-        return static_cast<int>(std::hash<Key>{}(key)) % array.size();
+        if (customHash)
+            return customHash(key) % array.size();
+        else
+            return static_cast<int>(std::hash<Key>{}(key)) % array.size();
     }
 };
 
 int main()
 {
-    CustomHashTable2<string, int> h(1);
+    auto customHash = [](const std::string &key) -> int
+    {
+        return 0;
+    };
+
+    CustomHashTable2<std::string, int> h(10, customHash);
     h.insert("tt", 10);
     h.insert("b", 11);
     h.insert("c", 12);
